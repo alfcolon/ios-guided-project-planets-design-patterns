@@ -25,8 +25,19 @@ class PlanetsCollectionViewController: UICollectionViewController {
 		super.viewDidLoad()
 		
 		updateViews()
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(refreshViews(_:)), name: .shouldShowPlutoChanged, object: SettingsViewController.self)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshViews(_:)), name: .shouldShowPlutoChanged, object: nil)
 	}
 	
+    @objc func refreshViews(_ notification: Notification) {
+        print("notification: \(notification)")
+        if let userinfo = notification.userInfo {
+                print("userinfo")
+        }
+        self.updateViews()
+    }
+    
 	func updateViews() {
         collectionView?.reloadData()
 	}
